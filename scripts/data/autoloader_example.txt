@@ -1,0 +1,20 @@
+# Autoloader for Incremental Data Ingestion
+
+Databricks Autoloader incrementally processes new files from cloud storage.
+
+## Sample Autoloader in PySpark:
+```python
+df = (spark.readStream
+      .format("cloudFiles")
+      .option("cloudFiles.format", "json")
+      .load("/mnt/incoming-data/"))
+
+df.writeStream
+  .format("delta")
+  .option("checkpointLocation", "/mnt/checkpoints/")
+  .table("bronze_events")
+```
+
+## Notes:
+- Works with JSON, CSV, Avro, and more.
+- Best suited for ingestion pipelines using the medallion architecture.

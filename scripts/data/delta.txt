@@ -1,0 +1,607 @@
+What is Delta Lake in Databricks? | Databricks Documentation
+
+
+Skip to main content
+Get started
+Developers
+Reference
+Release notes
+Resources
+Support
+Knowledge Base
+Community
+Training
+Feedback
+English
+English
+日本語
+Português
+AWS
+Azure
+GCP
+SAP
+Try Databricks
+Databricks on AWS
+Sign up for Databricks
+Get started tutorials
+What is Databricks?
+Architecture
+Workspace UI
+Data guides
+Data engineering
+AI and machine learning
+OLTP databases
+Data warehousing
+Business intelligence
+Compute
+Notebooks
+Tables
+Delta Lake
+Delta tables
+Tutorial
+Best practices
+Operations
+Data layout
+History and data retention
+Schema enforcement and evolution
+Table features
+Table properties reference
+Optimization & performance
+Delta Lake limitations on S3
+Iceberg
+Managed tables
+External tables
+Foreign tables
+Row and column filters
+Apache Spark
+Developers
+Technology partners
+Administration
+Security and compliance
+Data governance (Unity Catalog)
+Reference
+Release notes
+Resources
+Tables
+Delta Lake
+On this page
+What is 
+Delta Lake
+ in 
+Databricks
+?
+
+
+Delta Lake
+ is the optimized storage layer that provides the foundation for tables in a lakehouse on Databricks. 
+Delta Lake
+ is 
+open source software
+ that extends Parquet data files with a file-based transaction log for 
+ACID transactions
+ and scalable metadata handling. 
+Delta Lake
+ is fully compatible with 
+Apache Spark
+ APIs, and was developed for tight integration with 
+Structured Streaming
+, allowing you to easily use a single copy of data for both batch and streaming operations and providing incremental processing at scale.
+
+
+Delta Lake
+ is the default format for all operations on 
+Databricks
+. Unless otherwise specified, all tables on 
+Databricks
+ are Delta tables. Databricks originally developed the 
+Delta Lake
+ protocol and continues to actively contribute to the open source project. Many of the optimizations and products in the Databricks platform build upon the guarantees provided by 
+Apache Spark
+ and 
+Delta Lake
+. For information on optimizations on 
+Databricks
+, see 
+Optimization recommendations on 
+Databricks
+.
+
+
+For reference information on 
+Delta Lake
+ SQL commands, see 
+Delta Lake
+ statements
+.
+
+
+The 
+Delta Lake
+ transaction log has a well-defined open protocol that can be used by any system to read the log. See 
+Delta Transaction Log Protocol
+.
+
+
+Getting started with 
+Delta Lake
+​
+
+
+All tables on 
+Databricks
+ are Delta tables by default. Whether you're using 
+Apache Spark
+ 
+DataFrames
+ or SQL, you get all the benefits of 
+Delta Lake
+ just by saving your data to the lakehouse with default settings.
+
+
+For examples of basic 
+Delta Lake
+ operations such as creating tables, reading, writing, and updating data, see 
+Tutorial: 
+Delta Lake
+.
+
+
+Databricks has many recommendations for 
+best practices for Delta Lake
+.
+
+
+Converting and ingesting data to 
+Delta Lake
+​
+
+
+Databricks
+ provides a number of products to accelerate and simplify loading data to your lakehouse.
+
+
+
+
+
+
+Lakeflow Declarative Pipelines
+:
+
+
+
+
+Get started: Build an extract, transform, and load (ETL) pipeline in 
+Databricks
+
+
+Load data using streaming tables (Python/SQL notebook)
+
+
+
+
+
+
+Streaming tables
+
+
+
+
+
+
+
+
+COPY INTO
+
+
+
+
+
+
+Auto Loader
+
+
+
+
+
+
+Add data UI
+
+
+
+
+
+
+Incrementally convert Parquet or Iceberg data to Delta Lake
+
+
+
+
+
+
+One-time conversion of Parquet or Iceberg data to Delta Lake
+
+
+
+
+
+
+Third-party partners
+
+
+
+
+
+
+For a full list of ingestion options, see 
+Standard connectors in 
+Lakeflow Connect
+.
+
+
+Updating and modifying 
+Delta Lake
+ tables
+​
+
+
+Atomic transactions with 
+Delta Lake
+ provide many options for updating data and metadata. Databricks recommends you avoid interacting directly with data and transaction log files in 
+Delta Lake
+ file directories to avoid corrupting your tables.
+
+
+
+
+Delta Lake
+ supports upserts using the merge operation. See 
+Upsert into a 
+Delta Lake
+ table using merge
+.
+
+
+Delta Lake
+ provides numerous options for selective overwrites based on filters and partitions. See 
+Selectively overwrite data with 
+Delta Lake
+.
+
+
+You can manually or automatically update your table schema without rewriting data. See 
+Update 
+Delta Lake
+ table schema
+.
+
+
+Enable columns mapping to rename or delete columns without rewriting data. See 
+Rename and drop columns with 
+Delta Lake
+ column mapping
+.
+
+
+
+
+Incremental and streaming workloads on 
+Delta Lake
+​
+
+
+Delta Lake
+ is optimized for 
+Structured Streaming
+ on 
+Databricks
+. 
+Lakeflow Declarative Pipelines
+ extends native capabilities with simplified infrastructure deployment, enhanced scaling, and managed data dependencies.
+
+
+
+
+Delta table streaming reads and writes
+
+
+Use 
+Delta Lake
+ change data feed on 
+Databricks
+
+
+
+
+Querying previous versions of a table
+​
+
+
+Each write to a Delta table creates a new table version. You can use the transaction log to review modifications to your table and query previous table versions. See 
+Work with 
+Delta Lake
+ table history
+.
+
+
+Delta Lake
+ schema enhancements
+​
+
+
+Delta Lake
+ validates schema on write, ensuring that all data written to a table matches the requirements you've set.
+
+
+
+
+Schema enforcement
+
+
+Constraints on 
+Databricks
+
+
+Delta Lake
+ generated columns
+
+
+Enrich 
+Delta Lake
+ tables with custom metadata
+
+
+
+
+Managing files and indexing data with 
+Delta Lake
+​
+
+
+Databricks
+ sets many default parameters for 
+Delta Lake
+ that impact the size of data files and number of table versions that are retained in history. 
+Delta Lake
+ uses a combination of metadata parsing and physical data layout to reduce the number of files scanned to fulfill any query.
+
+
+
+
+Use liquid clustering for tables
+
+
+Data skipping for 
+Delta Lake
+
+
+Optimize data file layout
+
+
+Remove unused data files with vacuum
+
+
+Configure 
+Delta Lake
+ to control data file size
+
+
+
+
+Configuring and reviewing 
+Delta Lake
+ settings
+​
+
+
+Databricks
+ stores all data and metadata for 
+Delta Lake
+ tables in cloud object storage. Many configurations can be set at either the table level or within the Spark session. You can review the details of the Delta table to discover what options are configured.
+
+
+
+
+Review 
+Delta Lake
+ table details with describe detail
+
+
+Delta table properties reference
+
+
+
+
+Data pipelines using 
+Delta Lake
+ and 
+Lakeflow Declarative Pipelines
+​
+
+
+Databricks
+ encourages users to leverage a 
+medallion architecture
+ to process data through a series of tables as data is cleaned and enriched. 
+Lakeflow Declarative Pipelines
+ simplifies ETL workloads through optimized execution and automated infrastructure deployment and scaling.
+
+
+Delta Lake
+ feature compatibility
+​
+
+
+Not all 
+Delta Lake
+ features are in all versions of 
+Databricks Runtime
+. For information about 
+Delta Lake
+ versioning, see 
+Delta Lake
+ feature compatibility and protocols
+.
+
+
+Delta Lake
+ API documentation
+​
+
+
+For most read and write operations on Delta tables, you can use 
+Spark SQL
+ or 
+Apache Spark
+ 
+DataFrame
+ APIs.
+
+
+For 
+Delta Lake
+-specific SQL statements, see 
+Delta Lake
+ statements
+.
+
+
+Databricks
+ ensures binary compatibility with 
+Delta Lake
+ APIs in 
+Databricks Runtime
+. To view the 
+Delta Lake
+ API version packaged in each 
+Databricks Runtime
+ version, see the 
+System environment
+ section on the relevant article in the 
+Databricks Runtime release notes
+. For documentation on 
+Delta Lake
+ APIs for Python, Scala, and Java, see the 
+OSS Delta Lake documentation
+.
+Last updated
+ on 
+Dec 18, 2024
+Getting started with Delta Lake
+Converting and ingesting data to Delta Lake
+Updating and modifying Delta Lake tables
+Incremental and streaming workloads on Delta Lake
+Querying previous versions of a table
+Delta Lake schema enhancements
+Managing files and indexing data with Delta Lake
+Configuring and reviewing Delta Lake settings
+Data pipelines using Delta Lake and Lakeflow Declarative Pipelines
+Delta Lake feature compatibility
+Delta Lake API documentation
+Was this article helpful?
+Send us feedback
+·
+Privacy Notice
+·
+Terms of Use
+·
+Modern Slavery Statement
+·
+California Privacy
+·
+Your Privacy Choices 
+© Databricks 2025. All rights reserved. Apache, Apache Spark, Spark and the Spark logo are trademarks of the 
+Apache Software Foundation
+.
+
+
+
+
+
+
+ 
+
+
+
+
+We Care About Your Privacy
+Databricks uses cookies and similar technologies to enhance site navigation, analyze site usage, personalize content and ads, and as further described in our 
+Cookie Notice
+. Click “Accept All” to enable all cookies or “Reject All” to reject cookies. You can also manage your cookie settings by clicking “Manage Preferences.”
+
+Manage Preferences
+Reject All
+ 
+Accept All
+Privacy Preference Center
+Privacy Preference Center
+Your Privacy
+Strictly Necessary Cookies
+Performance Cookies
+Functional Cookies
+Targeting Cookies
+TOTHR
+Your Privacy
+When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.
+
+            
+More information
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They assist with essential site functionality such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will no longer work.
+Performance Cookies
+ 
+ 
+Performance Cookies
+ 
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.
+Functional Cookies
+ 
+ 
+Functional Cookies
+ 
+These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly.
+Targeting Cookies
+ 
+ 
+Targeting Cookies
+ 
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. If you do not allow these cookies, you will experience less targeted advertising.
+TOTHR
+ 
+ 
+TOTHR
+ 
+ 
+Back Button
+Cookie List
+ 
+Filter Button
+Consent
+ 
+Leg.Interest
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+Clear
+ 
+checkbox label
+ 
+label
+Apply
+ 
+Cancel
+Confirm My Choices
+ 
+Allow All
+
+--- CODE SNIPPETS ---
+

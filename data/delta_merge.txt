@@ -1,0 +1,27 @@
+# MERGE INTO for Upserts in Delta Lake
+
+Delta Lake supports MERGE INTO for handling updates and inserts (upserts) efficiently.
+
+## Syntax:
+```sql
+MERGE INTO target_table [AS target]
+USING source_table [AS source]
+ON condition
+WHEN MATCHED THEN UPDATE SET ...
+WHEN NOT MATCHED THEN INSERT ...
+```
+
+## Example:
+```sql
+MERGE INTO target AS t
+USING updates AS u
+ON t.id = u.id
+WHEN MATCHED THEN
+  UPDATE SET t.name = u.name
+WHEN NOT MATCHED THEN
+  INSERT (id, name) VALUES (u.id, u.name);
+```
+
+## Notes:
+- Great for slowly changing dimensions (SCD).
+- Supports nested conditions and expressions.
