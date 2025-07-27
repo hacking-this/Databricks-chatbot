@@ -1,0 +1,29 @@
+# CREATE TABLE in Databricks SQL
+
+The `CREATE TABLE` statement in Databricks SQL is used to define a new table.
+
+## Syntax:
+```sql
+CREATE TABLE [IF NOT EXISTS] table_name
+(
+    column_name1 data_type,
+    column_name2 data_type,
+    ...
+)
+USING data_source
+[OPTIONS (...)]
+[LOCATION path]
+```
+
+## Example:
+```sql
+CREATE TABLE employees (
+    id INT,
+    name STRING,
+    salary DOUBLE
+) USING DELTA;
+```
+
+## Notes:
+- `USING DELTA` defines the table format.
+- You can optionally add `TBLPROPERTIES`, `COMMENT`, `PARTITIONED BY`, and more.

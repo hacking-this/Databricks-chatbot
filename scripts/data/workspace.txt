@@ -1,0 +1,231 @@
+Workspace UI | Databricks Documentation
+
+
+Skip to main content
+Get started
+Developers
+Reference
+Release notes
+Resources
+Support
+Knowledge Base
+Community
+Training
+Feedback
+English
+English
+日本語
+Português
+AWS
+Azure
+GCP
+SAP
+Try Databricks
+Databricks on AWS
+Sign up for Databricks
+Get started tutorials
+What is Databricks?
+Architecture
+Workspace UI
+Navigate the workspace
+Workspace browser and file management
+Introduction to workspace objects
+Search for workspace objects
+Organize workspace objects into folders
+Get identifiers for workspace objects
+AI-powered features (Databricks Assistant)
+Data guides
+Data engineering
+AI and machine learning
+OLTP databases
+Data warehousing
+Business intelligence
+Compute
+Notebooks
+Tables
+Apache Spark
+Developers
+Technology partners
+Administration
+Security and compliance
+Data governance (Unity Catalog)
+Reference
+Release notes
+Resources
+Workspace UI
+On this page
+Workspace UI
+
+
+The 
+Databricks
+ workspace is your central hub for accessing all 
+Databricks
+ objects and features.
+
+
+Core concepts and navigation
+​
+
+
+Learn the fundamental concepts of the workspace and how to navigate its features.
+
+
+Topic
+Description
+Navigate the workspace
+Core concepts and foundational information about the workspace UI, homepage, sidebar, and help features.
+Workspace browser
+Browse and manage files, notebooks, and other workspace objects using the unified workspace browser.
+Search for workspace objects
+Find notebooks, queries, dashboards, files, and other workspace objects using the integrated search functionality.
+
+
+Managing workspace objects
+​
+
+
+Organize and manage your workspace objects including notebooks, files, folders, and libraries.
+
+
+Task
+Description
+Introduction to workspace objects
+Learn about the different types of objects you can create and manage in the workspace.
+Organize workspace objects into folders
+Structure your workspace by organizing objects into folders for better collaboration and management.
+Get identifiers for workspace objects
+Retrieve unique identifiers and metadata for workspace objects for programmatic access and automation.
+
+
+AI-powered features
+​
+
+
+Leverage 
+Databricks Assistant
+ and other AI-powered capabilities to improve productivity.
+
+
+Feature
+Description
+AI-powered features overview
+Learn about Databricks Assistant* and other AI-powered features available in the workspace.
+What is Databricks Assistant?
+Get answers to frequently asked questions about Databricks Assistant.
+AI features trust and safety
+Understand the trust and safety measures for Databricks AI features.
+Last updated
+ on 
+Jul 8, 2025
+Core concepts and navigation
+Managing workspace objects
+AI-powered features
+Was this article helpful?
+Send us feedback
+·
+Privacy Notice
+·
+Terms of Use
+·
+Modern Slavery Statement
+·
+California Privacy
+·
+Your Privacy Choices 
+© Databricks 2025. All rights reserved. Apache, Apache Spark, Spark and the Spark logo are trademarks of the 
+Apache Software Foundation
+.
+
+
+
+
+
+
+ 
+
+
+
+
+We Care About Your Privacy
+Databricks uses cookies and similar technologies to enhance site navigation, analyze site usage, personalize content and ads, and as further described in our 
+Cookie Notice
+. Click “Accept All” to enable all cookies or “Reject All” to reject cookies. You can also manage your cookie settings by clicking “Manage Preferences.”
+
+Manage Preferences
+Reject All
+ 
+Accept All
+Privacy Preference Center
+Privacy Preference Center
+Your Privacy
+Strictly Necessary Cookies
+Performance Cookies
+Functional Cookies
+Targeting Cookies
+TOTHR
+Your Privacy
+When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.
+
+            
+More information
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They assist with essential site functionality such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will no longer work.
+Performance Cookies
+ 
+ 
+Performance Cookies
+ 
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.
+Functional Cookies
+ 
+ 
+Functional Cookies
+ 
+These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly.
+Targeting Cookies
+ 
+ 
+Targeting Cookies
+ 
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. If you do not allow these cookies, you will experience less targeted advertising.
+TOTHR
+ 
+ 
+TOTHR
+ 
+ 
+Back Button
+Cookie List
+ 
+Filter Button
+Consent
+ 
+Leg.Interest
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+Clear
+ 
+checkbox label
+ 
+label
+Apply
+ 
+Cancel
+Confirm My Choices
+ 
+Allow All
+
+--- CODE SNIPPETS ---
+

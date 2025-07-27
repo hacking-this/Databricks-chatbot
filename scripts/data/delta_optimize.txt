@@ -1,0 +1,505 @@
+Optimize data file layout | Databricks Documentation
+
+
+Skip to main content
+Get started
+Developers
+Reference
+Release notes
+Resources
+Support
+Knowledge Base
+Community
+Training
+Feedback
+English
+English
+日本語
+Português
+AWS
+Azure
+GCP
+SAP
+Try Databricks
+Databricks on AWS
+Sign up for Databricks
+Get started tutorials
+What is Databricks?
+Architecture
+Workspace UI
+Data guides
+Data engineering
+AI and machine learning
+OLTP databases
+Data warehousing
+Business intelligence
+Compute
+Notebooks
+Tables
+Delta Lake
+Delta tables
+Tutorial
+Best practices
+Operations
+Merge data
+Selective overwrite
+Drop or replace
+Optimize
+Vacuum
+Clone
+Shallow clone for Unity Catalog tables
+View table details
+User-defined metadata
+Data layout
+History and data retention
+Schema enforcement and evolution
+Table features
+Table properties reference
+Optimization & performance
+Delta Lake limitations on S3
+Iceberg
+Managed tables
+External tables
+Foreign tables
+Row and column filters
+Apache Spark
+Developers
+Technology partners
+Administration
+Security and compliance
+Data governance (Unity Catalog)
+Reference
+Release notes
+Resources
+Tables
+Delta Lake
+Operations
+Optimize
+On this page
+Optimize data file layout
+
+
+Predictive optimization automatically runs 
+OPTIMIZE
+ on 
+Unity Catalog
+ managed tables. Databricks recommends enabling predictive optimization for all 
+Unity Catalog
+ managed tables to simplify data maintenance and reduce storage costs. See 
+Predictive optimization for 
+Unity Catalog
+ managed tables
+.
+
+
+The 
+OPTIMIZE
+ command rewrites data files to improve data layout for Delta tables. For tables with liquid clustering enabled, 
+OPTIMIZE
+ rewrites data files to group data by liquid clustering keys. For tables with partitions defined, file compaction and data layout are performed within partitions.
+
+
+Tables without liquid clustering can optionally include a 
+ZORDER BY
+ clause to improve data clustering on rewrite. Databricks recommends using liquid clustering instead of partitions, 
+ZORDER
+, or other data layout approaches.
+
+
+See 
+OPTIMIZE
+.
+
+
+important
+In 
+Databricks Runtime
+ 16.0 and above, you can use 
+OPTIMIZE FULL
+ to force reclustering for tables with liquid clustering enabled. See 
+Force reclustering for all records
+.
+
+
+Syntax examples
+​
+
+
+You trigger compaction by running the 
+OPTIMIZE
+ command:
+
+
+SQL
+Python
+Scala
+SQL
+OPTIMIZE
+ table_name
+Python
+from
+ delta
+.
+tables 
+import
+ 
+*
+deltaTable 
+=
+ DeltaTable
+.
+forName
+(
+spark
+,
+ 
+"table_name"
+)
+deltaTable
+.
+optimize
+(
+)
+.
+executeCompaction
+(
+)
+Scala
+import
+ 
+io
+.
+delta
+.
+tables
+.
+_
+val
+ deltaTable 
+=
+ DeltaTable
+.
+forName
+(
+spark
+,
+ 
+"table_name"
+)
+deltaTable
+.
+optimize
+(
+)
+.
+executeCompaction
+(
+)
+
+
+If you have a large amount of data and only want to optimize a subset of it, you can specify an optional partition predicate using 
+WHERE
+:
+
+
+SQL
+Python
+Scala
+SQL
+OPTIMIZE
+ table_name 
+WHERE
+ 
+date
+ 
+>=
+ 
+'2022-11-18'
+Python
+from
+ delta
+.
+tables 
+import
+ 
+*
+deltaTable 
+=
+ DeltaTable
+.
+forName
+(
+spark
+,
+ 
+"table_name"
+)
+deltaTable
+.
+optimize
+(
+)
+.
+where
+(
+"date='2021-11-18'"
+)
+.
+executeCompaction
+(
+)
+Scala
+import
+ 
+io
+.
+delta
+.
+tables
+.
+_
+val
+ deltaTable 
+=
+ DeltaTable
+.
+forName
+(
+spark
+,
+ 
+"table_name"
+)
+deltaTable
+.
+optimize
+(
+)
+.
+where
+(
+"date='2021-11-18'"
+)
+.
+executeCompaction
+(
+)
+
+
+note
+
+
+Bin-packing optimization is 
+idempotent
+, meaning that if it is run twice on the same dataset, the second run has no effect.
+
+
+Bin-packing aims to produce evenly-balanced data files with respect to their size on disk, but not necessarily number of tuples per file. However, the two measures are most often correlated.
+
+
+Python and Scala APIs for executing 
+OPTIMIZE
+ operation are available from 
+Databricks Runtime
+ 11.3 LTS and above.
+
+
+
+
+Readers of Delta tables use snapshot isolation, which means that they are not interrupted when 
+OPTIMIZE
+ removes unnecessary files from the transaction log. 
+OPTIMIZE
+ makes no data related changes to the table, so a read before and after an 
+OPTIMIZE
+ has the same results. Performing 
+OPTIMIZE
+ on a table that is a streaming source does not affect any current or future streams that treat this table as a source. 
+OPTIMIZE
+ returns the file statistics (min, max, total, and so on) for the files removed and the files added by the operation. Optimize stats also contains the Z-Ordering statistics, the number of batches, and partitions optimized.
+
+
+You can also compact small files automatically using auto compaction. See 
+Auto compaction for 
+Delta Lake
+ on 
+Databricks
+.
+
+
+How often should I run 
+OPTIMIZE
+?
+​
+
+
+Enable predictive optimization for 
+Unity Catalog
+ managed tables to ensure that 
+OPTIMIZE
+ runs automatically when it is cost effective.
+
+
+When you choose how often to run 
+OPTIMIZE
+, there is a trade-off between performance and cost. For better end-user query performance, run 
+OPTIMIZE
+ more often. This will incur a higher cost because of the increased resource usage. To optimize cost, run it less often.
+
+
+Databricks recommends that you start by running 
+OPTIMIZE
+ on a daily basis (preferably at night when spot prices are low), and then adjust the frequency to balance cost and performance trade-offs.
+
+
+What's the best instance type to run 
+OPTIMIZE
+ (bin-packing and Z-Ordering) on?
+​
+
+
+Both operations are CPU intensive operations doing large amounts of Parquet decoding and encoding.
+
+
+Databricks recommends 
+Compute optimized
+ instance types. 
+OPTIMIZE
+ also benefits from attached SSDs.
+Last updated
+ on 
+Feb 4, 2025
+Syntax examples
+How often should I run 
+OPTIMIZE
+?
+What's the best instance type to run 
+OPTIMIZE
+ (bin-packing and Z-Ordering) on?
+Was this article helpful?
+Send us feedback
+·
+Privacy Notice
+·
+Terms of Use
+·
+Modern Slavery Statement
+·
+California Privacy
+·
+Your Privacy Choices 
+© Databricks 2025. All rights reserved. Apache, Apache Spark, Spark and the Spark logo are trademarks of the 
+Apache Software Foundation
+.
+
+
+
+
+
+
+ 
+
+
+
+
+We Care About Your Privacy
+Databricks uses cookies and similar technologies to enhance site navigation, analyze site usage, personalize content and ads, and as further described in our 
+Cookie Notice
+. Click “Accept All” to enable all cookies or “Reject All” to reject cookies. You can also manage your cookie settings by clicking “Manage Preferences.”
+
+Manage Preferences
+Reject All
+ 
+Accept All
+Privacy Preference Center
+Privacy Preference Center
+Your Privacy
+Strictly Necessary Cookies
+Performance Cookies
+Functional Cookies
+Targeting Cookies
+TOTHR
+Your Privacy
+When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.
+
+            
+More information
+Strictly Necessary Cookies
+Always Active
+These cookies are necessary for the website to function and cannot be switched off in our systems. They assist with essential site functionality such as setting your privacy preferences, logging in or filling in forms. You can set your browser to block or alert you about these cookies, but some parts of the site will no longer work.
+Performance Cookies
+ 
+ 
+Performance Cookies
+ 
+These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.
+Functional Cookies
+ 
+ 
+Functional Cookies
+ 
+These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third party providers whose services we have added to our pages. If you do not allow these cookies then some or all of these services may not function properly.
+Targeting Cookies
+ 
+ 
+Targeting Cookies
+ 
+These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant advertisements on other sites. If you do not allow these cookies, you will experience less targeted advertising.
+TOTHR
+ 
+ 
+TOTHR
+ 
+ 
+Back Button
+Cookie List
+ 
+Filter Button
+Consent
+ 
+Leg.Interest
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+ 
+checkbox label
+ 
+label
+Clear
+ 
+checkbox label
+ 
+label
+Apply
+ 
+Cancel
+Confirm My Choices
+ 
+Allow All
+
+--- CODE SNIPPETS ---
+
+from delta.tables import *deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().executeCompaction()
+
+from delta.tables import *deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().executeCompaction()
+
+import io.delta.tables._val deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().executeCompaction()
+
+import io.delta.tables._val deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().executeCompaction()
+
+OPTIMIZE table_name WHERE date >= '2022-11-18'
+
+OPTIMIZE table_name WHERE date >= '2022-11-18'
+
+from delta.tables import *deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().where("date='2021-11-18'").executeCompaction()
+
+from delta.tables import *deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().where("date='2021-11-18'").executeCompaction()
+
+import io.delta.tables._val deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().where("date='2021-11-18'").executeCompaction()
+
+import io.delta.tables._val deltaTable = DeltaTable.forName(spark, "table_name")deltaTable.optimize().where("date='2021-11-18'").executeCompaction()

@@ -1,0 +1,18 @@
+# Upsert with SQL and MERGE
+
+Databricks SQL enables upserts using the `MERGE` command.
+
+## Sample:
+```sql
+MERGE INTO customers AS target
+USING staging_customers AS source
+ON target.id = source.id
+WHEN MATCHED THEN
+  UPDATE SET target.name = source.name
+WHEN NOT MATCHED THEN
+  INSERT (id, name) VALUES (source.id, source.name);
+```
+
+## Notes:
+- Very useful for data deduplication and change tracking.
+- Can be executed on a schedule with SQL workflows.
